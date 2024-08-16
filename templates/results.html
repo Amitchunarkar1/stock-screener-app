@@ -42,7 +42,9 @@
         <tbody>
             {% for stock in stock_data %}
             <tr>
-                <td>{{ stock.symbol }}</td>
+                <td><a href="https://in.tradingview.com/chart/?symbol={{ stock.symbol.replace('.NS', '') }}" target="_blank">{{ stock.symbol.replace('.NS', '') }}</a></td>
+
+
                 <td>{{ stock.latest_price }}</td>
                 <td>{{ stock.percent_change }}</td>
                 <td>{{ stock.asset_size }}</td>

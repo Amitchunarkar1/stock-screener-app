@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Screener</title>
+    <style>
+        .suggestions-box {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            width: 100%;
+        }
+        .suggestions-box label {
+            font-weight: bold;
+        }
+        .suggestions-box input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function addToTickers(tickers) {
+            const input = document.getElementById('tickers');
+            let currentTickers = input.value ? input.value.split(',') : [];
+            
+            tickers.forEach((ticker) => {
+                if (!currentTickers.includes(ticker)) {
+                    currentTickers.push(ticker);
+                }
+            });
+            
+            input.value = currentTickers.join(',');
+        }
+
+        function handleCheckboxClick(groupId) {
+            const checkboxes = document.querySelectorAll(`#${groupId} input[type=checkbox]:checked`);
+            let selectedTickers = [];
+            checkboxes.forEach((checkbox) => {
+                selectedTickers.push(checkbox.value);
+            });
+            addToTickers(selectedTickers);
+        }
+
+        function selectAll(groupId, select) {
+            const checkboxes = document.querySelectorAll(`#${groupId} input[type=checkbox]`);
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = select;
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Stock Screener</h1>
@@ -11,6 +56,102 @@
         <label for="tickers">Enter Stock Tickers (comma separated):</label>
         <input type="text" id="tickers" name="tickers" size="100">
         <button type="submit">Screen</button>
+
+        <div class="suggestions-box">
+            <label>Nifty 50 Stocks:</label>
+            <div id="nifty50">
+                {% for ticker in nifty50_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('nifty50', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('nifty50')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>ETF:</label>
+            <div id="etf">
+                {% for ticker in etf %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('etf', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('etf')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>Nifty 100 Stocks:</label>
+            <div id="nifty100">
+                {% for ticker in nifty100_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('nifty100', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('nifty100')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>Automobile Stocks:</label>
+            <div id="automobile">
+                {% for ticker in automobile_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('automobile', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('automobile')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>Energy Stocks:</label>
+            <div id="energy">
+                {% for ticker in energy_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('energy', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('energy')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>Banking Stocks:</label>
+            <div id="banking">
+                {% for ticker in banking_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('banking', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('banking')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>IT Stocks:</label>
+            <div id="it">
+                {% for ticker in it_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('it', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('it')">Add Selected</button>
+            </div>
+        </div>
+
+        <div class="suggestions-box">
+            <label>Pharma Stocks:</label>
+            <div id="pharma">
+                {% for ticker in pharma_stocks %}
+                    <input type="checkbox" value="{{ ticker }}">{{ ticker }}
+                {% endfor %}
+                <br>
+                <button type="button" onclick="selectAll('pharma', true)">Select All</button>
+                <button type="button" onclick="handleCheckboxClick('pharma')">Add Selected</button>
+            </div>
+        </div>
     </form>
 </body>
 </html>
